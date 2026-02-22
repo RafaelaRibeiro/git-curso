@@ -101,4 +101,35 @@ git rebase --continue         # finaliza rebase
 
 > **Regra de ouro:** nunca faça rebase de commits já enviados para repositório compartilhado.
 
-## Modulo 5 - Repositórios remotos
+## Módulo 5 — Repositórios Remotos
+
+### Conceitos
+- **Remoto** — referência para outro repositório Git (GitHub, GitLab, etc)
+- **origin** — nome convencional para o remoto principal
+- **origin/master** — remote tracking branch: snapshot do remoto na última comunicação
+- `master` e `origin/master` são coisas diferentes — ficam dessincronizadas normalmente
+
+### Comandos
+```bash
+git remote -v                     # lista remotos configurados
+git remote add origin <url>       # conecta repo local a um remoto
+git clone <url>                   # clona remoto (já configura origin)
+
+git push -u origin master         # primeiro push + configura tracking
+git push                          # envia commits (após tracking configurado)
+
+git fetch origin                  # baixa objetos e atualiza origin/*, não toca em branches locais
+git pull                          # fetch + merge automático
+git pull --rebase                 # fetch + rebase (histórico mais limpo)
+
+git branch -a                     # lista branches locais e remotas
+
+# Fluxo seguro do dia a dia
+git fetch origin
+git log --oneline --graph --all   # avalia o que chegou
+git merge origin/master           # integra quando pronto
+git push                          # envia
+```
+
+> **Cuidado:** `git push --force` sobrescreve histórico remoto. Prefira `--force-with-lease`.
+> **Prefer fetch + merge** ao `git pull` — te dá controle sobre o que está integrando.
