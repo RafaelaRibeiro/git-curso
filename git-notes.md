@@ -44,3 +44,24 @@ git log                           # histórico completo
 git log --oneline                 # histórico compacto
 git log --oneline --graph --all   # histórico com gráfico de branches
 ```
+
+## Módulo 3 — Branches
+
+### Conceitos
+- Branch é um arquivo de 40 bytes com um hash de commit — por isso é barata
+- HEAD aponta para a branch atual, que aponta para o último commit
+- Commitar avança a branch automaticamente; HEAD acompanha
+
+### Comandos
+```bash
+git branch                        # lista branches (* = atual)
+git branch nome                   # cria branch (não muda para ela)
+git switch nome                   # muda para a branch
+git switch -c nome                # cria e já muda
+git branch -d nome                # deleta branch mergeada
+git branch -D nome                # força deleção
+git log --oneline --graph --all   # visualiza divergência entre branches
+```
+
+### Prefixos comuns
+- feature/  fix/  refactor/  chore/
