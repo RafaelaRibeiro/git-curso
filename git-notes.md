@@ -133,5 +133,3 @@ git push                          # envia
 
 > **Cuidado:** `git push --force` sobrescreve histórico remoto. Prefira `--force-with-lease`.
 > **Prefer fetch + merge** ao `git pull` — te dá controle sobre o que está integrando.
-
-## Modulo 6
