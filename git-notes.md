@@ -65,3 +65,5 @@ git log --oneline --graph --all   # visualiza divergência entre branches
 
 ### Prefixos comuns
 - feature/  fix/  refactor/  chore/
+
+### branch master
