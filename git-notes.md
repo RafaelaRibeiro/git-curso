@@ -100,3 +100,5 @@ git rebase --continue         # finaliza rebase
 ```
 
 > **Regra de ouro:** nunca faça rebase de commits já enviados para repositório compartilhado.
+
+## Modulo 5 - Repositórios remotos
