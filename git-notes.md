@@ -25,9 +25,22 @@ git init                           # inicializa na pasta atual
 
 ## Módulo 2 — O ciclo de vida de um arquivo
 
-###  Os estados possíveis de um arquivo
-
+### Estados de um arquivo
 - **Untracked** -  o Git vê o arquivo existindo, mas nunca foi instruído a rastreá-lo. Arquivos novos começam aqui.
 - **Staged** - você disse ao Git "esse arquivo entra no próximo commit". Ele está na Staging Area.
 - **Committed** - o snapshot está salvo no repositório. O Working Directory está limpo em relação ao último commit.
 - **Modified** - o arquivo já foi commitado antes, mas você fez mudanças desde então. Ainda não está na Staging.
+
+
+### Comandos
+```bash
+git status                        # estado atual do repositório
+git add arquivo.txt               # adiciona arquivo específico à Staging
+git add .                         # adiciona tudo (cuidado: revise antes)
+git add -p arquivo.txt            # adiciona por trecho (hunk) — preciso e poderoso
+git commit -m "mensagem"          # commita o que está na Staging
+git commit -am "mensagem"         # add + commit (só arquivos já rastreados)
+git log                           # histórico completo
+git log --oneline                 # histórico compacto
+git log --oneline --graph --all   # histórico com gráfico de branches
+```
