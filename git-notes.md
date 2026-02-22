@@ -44,3 +44,5 @@ git log                           # histórico completo
 git log --oneline                 # histórico compacto
 git log --oneline --graph --all   # histórico com gráfico de branches
 ```
+
+## Módulo 3 - Branches
