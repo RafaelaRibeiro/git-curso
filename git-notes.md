@@ -66,4 +66,37 @@ git log --oneline --graph --all   # visualiza divergência entre branches
 ### Prefixos comuns
 - feature/  fix/  refactor/  chore/
 
-### branch master
+
+## Módulo 4 — Merge e Rebase
+
+### Conceitos
+- **Merge** — une históricos preservando a divergência, cria commit com dois pais
+- **Fast-forward** — merge sem commit extra quando a base não avançou
+- **Rebase** — reaplica commits em cima de outro ponto, histórico linear, hashes mudam
+- Conflito acontece nos dois — resolução é igual: editar, `git add`, continuar
+
+### Quando usar
+| Situação | Estratégia |
+|---|---|
+| Integrar feature finalizada | Merge |
+| Atualizar branch local com master | Rebase |
+| Branch já compartilhada | Merge (nunca rebase) |
+
+### Comandos
+```bash
+git merge branch              # merge na branch atual
+git merge --no-ff branch      # força commit de merge mesmo em fast-forward
+git merge --abort             # aborta merge em andamento
+
+git rebase master             # reaplica commits da branch atual em cima de master
+git rebase --continue         # continua após resolver conflito
+git rebase --abort            # aborta e volta ao estado anterior
+
+# Resolução de conflito (vale para merge e rebase)
+# 1. Editar arquivo, remover marcadores <<<<< ===== >>>>>
+git add arquivo               # marca como resolvido
+git commit                    # finaliza merge
+git rebase --continue         # finaliza rebase
+```
+
+> **Regra de ouro:** nunca faça rebase de commits já enviados para repositório compartilhado.
