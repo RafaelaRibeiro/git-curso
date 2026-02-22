@@ -133,3 +133,67 @@ git push                          # envia
 
 > **Cuidado:** `git push --force` sobrescreve histórico remoto. Prefira `--force-with-lease`.
 > **Prefer fetch + merge** ao `git pull` — te dá controle sobre o que está integrando.
+
+## Módulo 6 — Desfazendo Coisas
+
+### Mapa dos comandos por área
+- Working Directory → git restore arquivo
+- Staging Area      → git restore --staged arquivo
+- Repository        → git revert / git reset
+
+### Comandos
+```bash
+# Working Directory e Staging
+git restore arquivo.txt              # descarta mudanças locais (irreversível)
+git restore --staged arquivo.txt     # tira da Staging, mantém mudanças locais
+
+# Histórico — seguro para branches compartilhadas
+git revert HEAD                      # reverte último commit (cria commit novo)
+git revert b54dc61                   # reverte commit específico
+git revert --no-commit b54dc61       # aplica reversão sem commitar
+
+# Histórico — apenas branches locais não publicadas
+git reset --soft HEAD~1              # desfaz commit, mudanças voltam para Staging
+git reset --mixed HEAD~1             # desfaz commit, mudanças voltam para Modified
+git reset --hard HEAD~1              # desfaz commit, descarta tudo ⚠️
+
+# Corrigir último commit
+git commit --amend -m "mensagem"     # corrige mensagem
+git commit --amend --no-edit         # adiciona arquivo esquecido
+```
+
+### Quando usar
+| Situação | Comando |
+|---|---|
+| Commit não publicado, reformular | reset --soft |
+| Commit não publicado, descartar tudo | reset --hard |
+| Commit já publicado | revert |
+| Esqueceu arquivo ou errou mensagem | commit --amend |
+
+> Reset reescreve histórico — nunca use em commits já publicados.
+
+## Módulo 7 — Stash
+
+### Conceito
+Guarda trabalho inacabado em uma pilha temporária e limpa o Working Directory.
+Não é substituto de commit — use para pausas curtas de contexto.
+
+### Comandos
+```bash
+git stash                          # guarda Working Directory e Staging
+git stash push -m "descrição"      # guarda com mensagem descritiva
+git stash push -u -m "descrição"   # inclui arquivos untracked
+git stash list                     # lista stashes guardados
+git stash pop                      # restaura e remove da pilha
+git stash pop stash@{1}            # restaura stash específico
+git stash apply                    # restaura e mantém na pilha
+git stash drop                     # remove da pilha sem restaurar
+git stash clear                    # remove todos os stashes
+git stash branch feature/nome      # cria branch a partir do stash
+```
+
+### pop vs apply
+- **pop** — restaura e remove. Uso padrão.
+- **apply** — restaura e mantém. Usar quando o mesmo stash será aplicado em mais de uma branch.
+
+> Stash não vai para o remoto. Para pausas longas, prefira um commit `wip:` numa branch de trabalho.
