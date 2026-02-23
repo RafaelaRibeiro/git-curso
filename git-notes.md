@@ -197,3 +197,45 @@ git stash branch feature/nome      # cria branch a partir do stash
 - **apply** — restaura e mantém. Usar quando o mesmo stash será aplicado em mais de uma branch.
 
 > Stash não vai para o remoto. Para pausas longas, prefira um commit `wip:` numa branch de trabalho.
+
+## Módulo 8 — Fluxos de Trabalho
+
+### Git Flow — releases versionadas, ciclos definidos
+- `main` — produção, recebe merge de release e hotfix
+- `develop` — integração das features
+- `feature/*` — parte de develop, volta para develop
+- `hotfix/*` — parte de main, volta para main e develop
+
+### Modelo simplificado (sprints + staging)
+- `main` — produção
+- `develop` — integração, reflete staging
+- `feature/*` — uma por tarefa
+- `hotfix/*` — correções urgentes
+
+### Trunk-Based Development
+- Todos commitam em main diretamente
+- Branches de vida curta (horas/1-2 dias)
+- Viabilizado por feature flags e CI/CD maduro
+
+### Conventional Commits
+```
+tipo(escopo): descrição no imperativo, máx 72 chars
+
+corpo opcional: explica o PORQUÊ, não o quê
+```
+
+| Tipo | Uso |
+|---|---|
+| feat | nova funcionalidade |
+| fix | correção de bug |
+| refactor | sem alterar comportamento |
+| docs | documentação |
+| chore | config, dependências |
+| test | testes |
+| perf | performance |
+
+### Regras de mensagem
+- Imperativo: "adiciona", não "adicionado"
+- Título máx 72 caracteres
+- Corpo explica o porquê — o diff já mostra o quê
+- Um commit, uma responsabilidade
