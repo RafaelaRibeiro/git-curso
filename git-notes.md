@@ -239,3 +239,50 @@ corpo opcional: explica o PORQUÊ, não o quê
 - Título máx 72 caracteres
 - Corpo explica o porquê — o diff já mostra o quê
 - Um commit, uma responsabilidade
+## Módulo 9 — Ferramentas Avançadas
+
+### git reflog — rede de segurança local
+```bash
+git reflog                        # histórico completo do HEAD
+git reset --hard HEAD@{2}         # volta para estado anterior
+git checkout -b recuperado HEAD@{2} # recupera commit "perdido"
+```
+> Reflog é local e expira em 90 dias. Antes de entrar em pânico, consulte o reflog.
+
+### git cherry-pick — trazendo commits específicos
+```bash
+git cherry-pick b54dc61           # aplica commit na branch atual
+git cherry-pick a3f..f4d          # sequência de commits
+git cherry-pick --no-commit hash  # aplica sem commitar
+```
+> Gera hash novo — mesmo conteúdo, novo contexto. Pode gerar conflito no merge futuro.
+
+### git bisect — busca binária por regressões
+```bash
+git bisect start
+git bisect bad                    # HEAD tem o bug
+git bisect good e72fe34           # esse commit estava ok
+git bisect good / bad             # repete até identificar o commit
+git bisect reset                  # volta ao HEAD
+git bisect run npm test           # automatiza com script
+```
+
+### git tag — marcando releases
+```bash
+git tag -a v1.0.0 -m "mensagem"   # tag anotada (use para releases)
+git tag v1.0.0                    # tag leve (sem metadados)
+git tag -a v1.0.0 hash -m "msg"   # tag em commit específico
+git show v1.0.0                   # detalhes da tag
+git push origin v1.0.0            # envia tag para remoto
+git push origin --tags            # envia todas as tags
+```
+
+### git log avançado
+```bash
+git log --author="nome"           # por autor
+git log --grep="termo"            # por mensagem
+git log -- arquivo.ts             # por arquivo
+git log --after="2024-01-01"      # por data
+git log -p                        # com diff
+git log --stat                    # resumo de linhas alteradas
+```
