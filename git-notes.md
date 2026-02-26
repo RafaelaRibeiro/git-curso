@@ -60,6 +60,17 @@ git switch nome                   # muda para a branch
 git switch -c nome                # cria e já muda
 git branch -d nome                # deleta branch mergeada
 git branch -D nome                # força deleção
+# 1. Renomeia localmente
+git branch -m nome-antigo novo-nome
+
+# 2. Envia a branch com o novo nome
+git push origin novo-nome
+
+# 3. Deleta a branch antiga do remoto
+git push origin --delete nome-antigo
+
+# 4. Atualiza o tracking
+git branch --set-upstream-to=origin/novo-nome novo-nome
 git log --oneline --graph --all   # visualiza divergência entre branches
 ```
 
