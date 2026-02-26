@@ -286,3 +286,113 @@ git log --after="2024-01-01"      # por data
 git log -p                        # com diff
 git log --stat                    # resumo de linhas alteradas
 ```
+## Módulo 10 — Git no Dia a Dia Profissional
+
+### .gitignore
+```bash
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+```
+```bash
+git rm --cached arquivo.env       # para de rastrear sem deletar localmente
+git config --global core.excludesfile ~/.gitignore_global  # gitignore global
+```
+
+### Aliases
+```bash
+git config --global alias.lg      "log --oneline --graph --all"
+git config --global alias.st      "status"
+git config --global alias.sw      "switch"
+git config --global alias.undo    "reset --soft HEAD~1"
+git config --global alias.aliases "config --get-regexp alias"
+```
+
+### Hooks
+```bash
+# Localização
+.git/hooks/pre-commit             # roda antes do commit (lint)
+.git/hooks/commit-msg             # valida mensagem
+.git/hooks/pre-push               # roda antes do push (testes)
+
+# Compartilhar hooks com o time
+git config core.hooksPath .githooks
+```
+
+### Comandos úteis
+```bash
+git blame arquivo.ts              # autoria linha a linha
+git blame -L 10,25 arquivo.ts     # intervalo de linhas
+git diff                          # Working Directory vs Staging
+git diff --staged                 # Staging vs último commit
+git diff master..feature/login    # entre branches
+git diff v1.0.0..v1.1.0           # entre tags
+```
+
+### Configurações recomendadas
+```bash
+git config --global pull.rebase true
+git config --global help.autocorrect 20
+git config --global color.ui auto
+git config --global init.defaultBranch main
+```
+
+---
+
+## Referência — Conventional Commits
+
+### Estrutura
+```
+tipo(escopo): descrição no imperativo, máx 72 chars
+
+corpo opcional: explica o PORQUÊ
+```
+
+### Exemplos por tipo
+
+**feat** — nova funcionalidade
+```
+feat(auth): implementa refresh token rotation
+feat(client): adiciona repositório com operações CRUD
+feat(user): adiciona validação de senha obrigatória no cadastro
+```
+
+**fix** — correção de bug
+```
+fix(frete): corrige cálculo quando peso é fracionado
+fix(shipper): corrige deleção que não removia registros dependentes
+fix(auth): corrige token expirado não redirecionando para login
+```
+
+**refactor** — sem alterar comportamento externo
+```
+refactor(container): extrai lógica de validação para service
+refactor(mapper): simplifica conversão de entidade para DTO
+```
+
+**docs** — documentação
+```
+docs(readme): adiciona instruções de setup do ambiente
+docs(api): documenta endpoints de autenticação
+```
+
+**chore** — configuração, dependências, build
+```
+chore: atualiza dependências do NestJS para v10
+chore(docker): adiciona configuração para ambiente de staging
+```
+
+**test** — testes
+```
+test(auth): adiciona testes unitários para validação de token
+test(frete): cobre cenários de peso fracionado
+```
+
+**perf** — performance
+```
+perf(query): adiciona índice em shipper_id na tabela de pedidos
+```
